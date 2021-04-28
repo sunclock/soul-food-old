@@ -5,6 +5,7 @@ import { useStateMachine } from "little-state-machine";
 import { firestore } from "../firebase";
 import bulbOnSimple from "../assets/pictures/bulbOnSimple.png";
 import halfSign from "../assets/pictures/halfSign.png";
+import gazeZero from "../assets/pictures/gazeZero.png";
 import gazeOne from "../assets/pictures/gazeOne.png";
 import gazeTwo from "../assets/pictures/gazeTwo.png";
 import gazeThree from "../assets/pictures/gazeThree.png";
@@ -30,6 +31,9 @@ async function getQuestionDoc(db, number) {
 
 
 const updateProgressBar = (number) => {
+    if (number < 2) {
+        return <img id="proress-img" src={gazeZero} alt="질문 16개 중 2개 완료" />
+    }
     if (number < 4) {
         return <img id="proress-img" src={gazeOne} alt="질문 16개 중 2개 완료" />
     }
@@ -40,11 +44,7 @@ const updateProgressBar = (number) => {
         return <img id="proress-img" src={gazeThree} alt="질문 16개 중 6개 완료" />
     }
     if (number < 10) {
-        return (
-            <>
-                <img id="proress-img" src={gazeFour} alt="질문 16개 중 8개 완료" />
-            </>
-        )
+        return <img id="proress-img" src={gazeFour} alt="질문 16개 중 8개 완료" />
     }
     if (number < 12) {
         return <img id="proress-img" src={gazeFive} alt="질문 16개 중 10개 완료" />
