@@ -228,14 +228,6 @@ li {
 #############  QuestionPage.jsx ####################
 ################################################*/
 
-#proress-img {
-  display: inline-block;
-  position: absolute;
-  width: 80%;
-  height: 65%;
-  top: 35%;
-}
-
 #progress-text {
   display: inline-block;
   margin-top: 10%;
@@ -244,9 +236,18 @@ li {
   line-height: 21px;
 }
 
-#progress-half-img {
+#proress-img {
+  display: inline-block;
   position: absolute;
-  top: 200%;
+  width: 80%;
+  height: 70%;
+  top: 35%;
+}
+
+#half-img-box {
+  position:absolute;
+  top:14%;
+  left:8%;
 }
 
 #bulb-simple-img {
@@ -380,7 +381,7 @@ background-repeat: no-repeat;
 }
 
 #app-theme-color {
-  /*color:app-them-color*/
+  /*app-them-color*/
 }
 
 .link-container {

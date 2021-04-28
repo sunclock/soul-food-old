@@ -140,7 +140,9 @@ function QuestionPage({ location, history }) {
                 <img id="bulb-simple-img" src={bulbOnSimple} alt="불 켜진 전구" />
                 {updateProgressBar(number)}
                 <h1 id="progress-text">{number}/16</h1>
-                {number == 8 && <img id="#progress-half-img" src={halfSign} alt="질문 절반 완료" />}
+            </div>
+            <div id="half-img-box">
+                {number == 8 && <img src={halfSign} alt="질문 절반 완료" />}
             </div>
             <div className="box purple-border-box" id="question-box">
                 <br />
