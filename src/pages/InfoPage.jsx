@@ -21,7 +21,7 @@ function InfoPage({ location, history }) {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <h1 className="yellow-outline-bold" id="info-title">주문받겠습니다</h1>
-            <div class="box purple-border-box">
+            <div class="box purple-border-box" id="info-box">
                 <label className="info-label">성별</label>
                 <select defaultValue="선택" name="sex" ref={register}>
                     <option value="선택" disabled hidden>선택</option>

@@ -54,6 +54,7 @@ async function getRule(db, response) {
         // newRule.rule : list of string
 
     console.log("getRule() called");
+    console.log("resposne is ", response);
 
     var count = 1;
     var rule = [];
@@ -65,20 +66,23 @@ async function getRule(db, response) {
         console.log('getRule() No matching documents.');
         return;
     }
+
     snapshot.forEach(doc => {
         var newRule = new Object();
         newRule.id = count;
+        console.log('count is', count);
+        var index = parseInt(doc.id) - 1;
+        console.log('doc.id is', doc.id, 'index is', index);
 
-        var index = parseInt(doc.id) - 1
-
-        if (response[index] === 0) {
+        if (parseInt(response[index]) === 0) {
             newRule.rule = doc.data().rules.choiceFirst;
+            console.log('called choiceFirst', 'resposne[index]', response[index]);
         } else {
             newRule.rule = doc.data().rules.choiceSecond;
+            console.log('called choiceSecond', 'resposne[index]', response[index]);
         }
             rule.push(newRule);
             count += 1;
-        
     })
 
     console.log('getRule() return rule', rule);
@@ -230,7 +234,7 @@ export default function ResultPage({ location, history }) {
     const [ imageName, setImageName ] = useState('');
     const [ result, setResult ] = useState('결과를 받는 중이에요');
     
-    const url = 'localhost:3000/main'
+    const url = 'http://ec2-13-124-188-130.ap-northeast-2.compute.amazonaws.com/main';
 
     useEffect(() => {
 
@@ -260,9 +264,8 @@ export default function ResultPage({ location, history }) {
             const timestamp = firebase.firestore.Timestamp.fromDate(new Date());
             await setUserDocument(db, state.data.age, state.data.sex, state.data.occupation, timestamp, response, soulFood, keyword);
         }
-
         orderControllerSecond();
-        setResult('나만의 소울푸드는...' + soulFood + '! 나만의 소울푸드가 궁금하다면? ' + url);
+        setResult('🍀나만의 소울푸드 심리테스트🍀 : ' + soulFood + '! [나만의 소울푸드가 궁금하다면?]  ' + url);
     }, [isLoading]);
 
     return (
@@ -271,9 +274,9 @@ export default function ResultPage({ location, history }) {
             popover={({ visible, close }) => {
           return (
             <div className="locus-purple-box" id="pop-up-container">
-                <p>안심식당을 아시나요?</p><br/>
-                <p>안심식당은 정부에서 지정한 "코로나19 시국에 믿고 먹울 수 있는 식당"입니다.</p><br/>
-                <p>저희 "안심한끼 프로젝트"는 안심식당을 활용한 공공 앱 서비스를 준비하고 있어요!</p> 
+                <p>안심한끼 팀 소개</p><br/>
+                <p></p>
+                <p></p> 
                 <button id="pop-up-btn" onClick={close}>닫기</button>
             </div>
           );
@@ -287,7 +290,6 @@ export default function ResultPage({ location, history }) {
                         <img id="pop-up-img" src={bulbDetail} alt="설명 보기" />
                     </div>
           </div>
-            
         </Popover>
         <h1 className="yellow-outline-bold" id="result-title">당신의 소울푸드!</h1>
         <div className="box">
@@ -311,7 +313,7 @@ export default function ResultPage({ location, history }) {
                 : '로딩중이에요'}
             </ul>
         </div>
-        <div className="box">
+        <div id="rule-box" className="box">
             <h2 className="yellow-outline-light">당신은 이런 환경에서 식사할 때 <br />훨씬 행복한 사람이에요!</h2>
                 <div className="locus-purple-box">
                     {!isLoading
@@ -333,11 +335,10 @@ export default function ResultPage({ location, history }) {
                 발걸음에 함께 해주셔서 감사합니다 :)
             </p>
         </div>
-        <div className="box">
+        <div id="share-box" className="box">
             <TextShareButton text={result} />
             <KakaoShareButton text={result} />
         </div>
     </div>
     );
-    
 } 
