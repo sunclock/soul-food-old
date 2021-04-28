@@ -104,7 +104,7 @@ li {
   text-shadow: -1.5px 0 black, 0 1.5px black, 1.5px 0 black, 0 -1.5px black;
   color: #FEFFD1;
   letter-spacing: -1px;
-  font-size: 23px;
+  font-size: 22px;
 }
 
 /* ##############################################
@@ -390,13 +390,12 @@ background-repeat: no-repeat;
   margin-bottom: 15%;
 }
 
-#left-link-container {
-  margin-left: 20%;
-  margin-right: 20%;
+#share-box {
+  white-space: nowrap;
 }
 
-#right-link-container {
-  margin-right: 15%;
+#left-link-container {
+  margin-left: 20%;
 }
 
 .link-btn, .link-img, #kakao-link-btn, #text-link-btn{

@@ -4,7 +4,7 @@ import link from './assets/pictures/link.png';
 export default function TextShareButton(result) {
     console.log(result);
     return (
-        <div className="link-container" id="left-link-container">
+        <div className="link-container left-float" id="left-link-container">
             <CopyToClipboard text={result.text}>
             <button className="link-btn" id="text-link-btn">
                 <img className="link-img" src={link} alt="링크 공유하기" />

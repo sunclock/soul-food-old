@@ -275,8 +275,8 @@ export default function ResultPage({ location, history }) {
           return (
             <div className="locus-purple-box" id="pop-up-container">
                 <p>안심한끼 팀 소개</p><br/>
-                <p></p>
-                <p></p> 
+                <p>정부에서는 '안심식당'지정을 통해서 건강한 외식문화 조성을 위해 노력하고 있는데요,</p>
+                <p>저희는 안심식당 데이터를 활용한 앱서비스 <span id="app-theme-color">안심한끼</span>를 제작 중인 대학생들이랍니다:)</p>
                 <button id="pop-up-btn" onClick={close}>닫기</button>
             </div>
           );
@@ -319,7 +319,7 @@ export default function ResultPage({ location, history }) {
                     {!isLoading
                     ? rule.map((item) => {
                         if (item.rule.length > 1) {
-                            return <p key={item.id}>- {item.rule}</p>
+                            return <><p key={item.id}>- {item.rule}</p><br/></>
                         }})
                     : '로딩중이에요'}
                     
