@@ -43,6 +43,10 @@ select, option {
   font-size: 18px;
 }
 
+li {
+  line-height: 20px;
+}
+
 .locus {
   font-family: "locus sangsang";
   font-size: 20px;
@@ -99,6 +103,7 @@ select, option {
 .yellow-outline-light {
   text-shadow: -1.5px 0 black, 0 1.5px black, 1.5px 0 black, 0 -1.5px black;
   color: #FEFFD1;
+  letter-spacing: -1px;
 }
 
 /* ##############################################
@@ -372,6 +377,10 @@ background-repeat: no-repeat;
   color: #000000;
   text-align: left;
   margin-bottom: 10%;
+}
+
+#app-theme-color {
+  /*color:app-them-color*/
 }
 
 .link-container {

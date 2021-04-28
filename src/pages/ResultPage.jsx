@@ -314,20 +314,21 @@ export default function ResultPage({ location, history }) {
         <div className="box">
             <h2 className="yellow-outline-light">당신은 이런 환경에서 식사할 때 <br />훨씬 행복한 사람이에요!</h2>
                 <div className="locus-purple-box">
-                    <ul>{!isLoading
-                        ? rule.map((item) => {
-                            return <li key={item.id}>{item.rule}</li>
-                        })
-                        : '로딩중이에요'}
-                    </ul>
+                    {!isLoading
+                    ? rule.map((item) => {
+                        if (item.rule.length > 1) {
+                            return <p key={item.id}>- {item.rule}</p>
+                        }})
+                    : '로딩중이에요'}
+                    
                 </div>
         </div>
         <h2 className="yellow-outline-light">여러분의 설문 결과는!</h2>
         <div className="box locus-purple-box">
             <p>안녕하세요. <br />
-                저희는 공공앱 &#60;안심한끼&#62;를 개발 중인 대학생들입니다.<br />
+                저희는 공공앱 <span id="app-theme-color">안심한끼</span>를 개발 중인 대학생들입니다.
                 여러분들의 응답결과는 보다 유용한 서비스 제공을 위해
-                활용될 계획이에요! <br />
+                활용될 계획이에요!
                 밥 한끼를 먹더라도 안전하고 만족스럽게 먹기 위한
                 발걸음에 함께 해주셔서 감사합니다 :)
             </p>
