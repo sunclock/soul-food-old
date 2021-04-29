@@ -5,8 +5,6 @@ import { useStateMachine } from "little-state-machine";
 import updateInfo from "../actions/updateInfo";
 function InfoPage({ location, history }) {
 
-    // console.log(location);
-    // console.log(history);
     const { handleSubmit, register } = useForm();
     const { actions } = useStateMachine({ updateInfo });
     const onSubmit = data => {
@@ -15,7 +13,11 @@ function InfoPage({ location, history }) {
             age: data.age,
             occupation: data.occupation
         });
-        history.push("/question");
+        if (data.sex == '선택' || data.age == '선택' || data.occupation == '선택') {
+            alert('성별, 나이, 직업을 모두 선택해주세요!')
+        } else {
+            history.push("/question");
+        }
     };
 
     return (
