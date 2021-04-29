@@ -48,6 +48,10 @@ li {
   line-height: 20px;
 }
 
+ a:link { color: gray; text-decoration: none;}
+ a:visited { color:  gray; text-decoration: none;}
+ a:hover { color:  gray; text-decoration: none;}
+
 .locus {
   font-family: "locus sangsang";
   font-size: 20px;
@@ -387,7 +391,6 @@ background-repeat: no-repeat;
 
 .link-container {
   float:left;
-  margin-bottom: 15%;
 }
 
 #share-box {
@@ -403,6 +406,12 @@ background-repeat: no-repeat;
   height: 47px;
   background-color: transparent;
   margin-bottom: 10%;
+}
+
+#reference {
+  margin-top: 10%;
+  font-size: 9px;
+  color: gray;
 }
 
 #pop-up-container {

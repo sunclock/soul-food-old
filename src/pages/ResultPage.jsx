@@ -314,7 +314,7 @@ export default function ResultPage({ location, history }) {
             </ul>
         </div>
         <div id="rule-box" className="box">
-            <h2 className="yellow-outline-light">당신은 이런 환경에서 식사할 때 <br />훨씬 행복한 사람이에요!</h2>
+            <h2 className="yellow-outline-light">당신은 이런 곳에서 식사하면<br />훨씬 행복한 사람이에요!</h2>
                 <div className="locus-purple-box">
                     {!isLoading
                     ? rule.map((item) => {
@@ -338,6 +338,21 @@ export default function ResultPage({ location, history }) {
         <div id="share-box" className="box">
             <TextShareButton text={result} />
             <KakaoShareButton text={result} />
+        </div><br/><br/><br/><br/><br/><br/>
+        <div id="reference">
+                <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" 
+                    title="Smashicons">Smashicons</a> 
+                    from <a href="https://www.flaticon.com/" 
+                    title="Flaticon">www.flaticon.com</a>
+                </div>
+                <div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect"
+                    title="Pixel perfect">Pixel perfect</a> 
+                    from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+                </div>
+                <div>Icons made by <a href="https://www.freepik.com" 
+                    title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 
+                    title="Flaticon">www.flaticon.com</a>
+                </div>
         </div>
     </div>
     );
