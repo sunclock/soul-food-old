@@ -248,11 +248,8 @@ export default function ResultPage({ location, history }) {
     }, []);
 
     useEffect(() => {
-        async function orderControllerSecond() {
-            const timestamp = firebase.firestore.Timestamp.fromDate(new Date());
-            await setUserDocument(db, state.data.age, state.data.sex, state.data.occupation, timestamp, response, soulFood, keyword);
-        }
-        orderControllerSecond();
+        const timestamp = firebase.firestore.Timestamp.fromDate(new Date());
+        setUserDocument(db, state.data.age, state.data.sex, state.data.occupation, timestamp, response, soulFood, keyword);
         setResult('🍀나만의 소울푸드 심리테스트🍀 : ' + soulFood + '! [나만의 소울푸드가 궁금하다면?]  ' + url);
     }, [isLoading]);
 
