@@ -361,8 +361,6 @@ background-repeat: no-repeat;
   align-content: flex-start;
   flex-direction: column;
   flex-wrap: wrap;
-  overflow: auto;
-  width: 340px;
   height: 100px;
 }
 
@@ -389,23 +387,21 @@ background-repeat: no-repeat;
   color: #6A0888;
 }
 
-.link-container {
-  float:left;
-}
-
-#share-box {
-  white-space: nowrap;
-}
 
 #left-link-container {
   margin-left: 20%;
 }
 
-.link-btn, .link-img, #kakao-link-btn, #text-link-btn{
+.link-btn, .link-img, #text-link-btn{
   width: 47px;
   height: 47px;
   background-color: transparent;
-  margin-bottom: 10%;
+  margin: 0 auto;
+  margin-bottom: 5%;
+}
+
+#link-label { 
+  padding-top: 10%;
 }
 
 #reference {

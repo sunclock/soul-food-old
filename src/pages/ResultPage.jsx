@@ -4,8 +4,7 @@ import updateChoice from "../actions/updateChoice";
 import { firebase, firestore } from "../firebase";
 import { Popover } from '@varld/popover'
 import bulbDetail from "../assets/pictures/bulbDetail.png";
-import ShareLink from '../shareLink';
-
+import TextShareButton from "../TextShareButton";
 
 const db = firestore; //store 사용 
 
@@ -232,7 +231,8 @@ export default function ResultPage({ location, history }) {
     const [ rule, setRule ] = useState([{id: 0, rule: '로딩중이에요'}]);
     const [ keyword, setKeyword ] = useState([{ id: 0, keyword: '로딩중이에요' }]);
     const [ imageName, setImageName ] = useState('');
-    
+    const [result, setResult] = useState('결과를 받는 중이에요');
+
     const url = 'http://ec2-13-124-188-130.ap-northeast-2.compute.amazonaws.com/main';
 
     useEffect(() => {
@@ -264,6 +264,7 @@ export default function ResultPage({ location, history }) {
             await setUserDocument(db, state.data.age, state.data.sex, state.data.occupation, timestamp, response, soulFood, keyword);
         }
         orderControllerSecond();
+        setResult('🍀나만의 소울푸드 심리테스트🍀 : ' + soulFood + '! [나만의 소울푸드가 궁금하다면?]  ' + url);
     }, [isLoading]);
 
     return (
@@ -333,13 +334,7 @@ export default function ResultPage({ location, history }) {
                 발걸음에 함께 해주셔서 감사합니다 :)
             </p>
         </div>
-        <div id="share-box" className="box">
-            {!isLoading
-            ? <ShareLink url={url} title={document.tile} soulFood={soulFood} />
-            : '로딩중이에요!'
-            }
-        </div>
-        <br/><br/><br/><br/><br/><br/>
+        <TextShareButton text={result} />
         <div id="reference">
                 <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" 
                     title="Smashicons">Smashicons</a> 
