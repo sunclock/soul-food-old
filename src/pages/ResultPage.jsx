@@ -8,6 +8,29 @@ import TextShareButton from "../TextShareButton";
 
 const db = firestore; //store 사용 
 
+async function setUserDocument (db, age, sex, occupation, timestamp, response, soulFood, keyword) {
+
+    // [parameters]
+    // db: firestore
+    // age, sex, occupation, soulFood: string
+    // response: list of number 0 and 1, length of 16.
+    // keyword: list of string
+    // date: firebase timestamp object
+
+    console.log("setUserDocument() called");
+
+    const user = await db.collection('users').add({
+        age: age,
+        sex: sex,
+        occupation: occupation,
+        date: timestamp,
+        response: response,
+        soulFood: soulFood,
+        keyword: keyword
+    });
+    console.log('setUserDocument() Added document with ID: ', user.id);
+}
+
 async function getKeyword(db, response) {
 
     // [parameters]
@@ -113,31 +136,6 @@ async function getSoulFood(db, tempFood) {
     console.log("getSoulFood() return soulFood", soulFood);
     return soulFood;
 }
-
-async function setUserDocument(db, age, sex, occupation, timestamp, response, soulFood, keyword) {
-
-    // [parameters]
-    // db: firestore
-    // age, sex, occupation, soulFood: string
-    // response: list of number 0 and 1, length of 16.
-    // keyword: list of string
-    // date: firebase timestamp object
-
-    console.log("setUserDocument() called");
-
-    const user = await db.collection('users').add({
-        age: age,
-        sex: sex,
-        occupation: occupation,
-        date: timestamp,
-        response: response,
-        soulFood: soulFood,
-        keyword: keyword
-    });
-
-    console.log('setUserDocument() Added document with ID: ', user.id);
-}
-
 
 async function testSoulFood(db, response) {
 
@@ -247,15 +245,6 @@ export default function ResultPage({ location, history }) {
             setIsLoading(false);
         }
         orderController();
-
-        // 카카오톡 공유를 위한 <script> 만들기
-        const script = document.createElement('script')
-        script.src = 'https://developers.kakao.com/sdk/js/kakao.js'
-        script.async = true
-        document.body.appendChild(script)
-        return () => {
-            document.body.removeChild(script)
-        }
     }, []);
 
     useEffect(() => {
