@@ -4,6 +4,7 @@ import updateChoice from "../actions/updateChoice";
 import { firebase, firestore } from "../firebase";
 import { Popover } from '@varld/popover'
 import bulbDetail from "../assets/pictures/bulbDetail.png";
+import ShareLink from '../shareLink';
 
 
 const db = firestore; //store 사용 
@@ -333,6 +334,10 @@ export default function ResultPage({ location, history }) {
             </p>
         </div>
         <div id="share-box" className="box">
+            {!isLoading
+            ? <ShareLink url={url} title={document.tile} soulFood={soulFood} />
+            : '로딩중이에요!'
+            }
         </div>
         <br/><br/><br/><br/><br/><br/>
         <div id="reference">
