@@ -119,19 +119,20 @@ function QuestionPage({ location, history }) {
         // number가 업데이트 될 때마다 실행합니다
         updateQuestionAndChoice();
         updateProgressBar(number);
+        actions.updateChoice(choice);
+        console.log('useEffect[number] called:', choice, 'number', number);
+        
+        if (number==17) {
+        history.push("/result");
+        }
     }, [number]);
 
     const handleChange = (newVal) => {
-        console.log('handle change called');
+        console.log('handle change called', number);
         if (number < 17) {
             setNumber(parseInt(number) + 1 + "");
             setChoice(choice + newVal);
-
-        } else {
-            actions.updateChoice(choice);
-            console.log(choice);
-            history.push("/result");
-        }
+        } 
     }
 
     return (
