@@ -48,6 +48,7 @@ function InfoPage({ location, history }) {
                     <option value="student">학생</option>
                     <option value="officeWorker">직장인</option>
                     <option value="stayAtHome">전업주부</option>
+                    <option value="selfEmployed">개인 사업 / 프리랜서 </option>
                     <option value="other">그 외</option>
                 </select>
             </div>
