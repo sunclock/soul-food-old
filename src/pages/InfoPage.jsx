@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateInfo from "../actions/updateInfo";
+
 function InfoPage({ location, history }) {
 
     const { handleSubmit, register } = useForm();
