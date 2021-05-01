@@ -60,7 +60,7 @@ async function getKeyword(db, response) {
             count += 1;
         }
     });
-    console.log('getKeyword() return keyword', keyword);
+
     return keyword;
 }
 
@@ -76,7 +76,6 @@ async function getRule(db, response) {
         // newRule.rule : list of string
 
     console.log("getRule() called");
-    console.log("resposne is ", response);
 
     var count = 1;
     var rule = [];
@@ -92,22 +91,17 @@ async function getRule(db, response) {
     snapshot.forEach(doc => {
         var newRule = new Object();
         newRule.id = count;
-        console.log('count is', count);
         var index = parseInt(doc.id) - 1;
-        console.log('doc.id is', doc.id, 'index is', index);
 
         if (parseInt(response[index]) === 0) {
             newRule.rule = doc.data().rules.choiceFirst;
-            console.log('called choiceFirst', 'resposne[index]', response[index]);
         } else {
             newRule.rule = doc.data().rules.choiceSecond;
-            console.log('called choiceSecond', 'resposne[index]', response[index]);
         }
             rule.push(newRule);
             count += 1;
     })
 
-    console.log('getRule() return rule', rule);
     return rule;
 }
 
@@ -133,7 +127,6 @@ async function getSoulFood(db, tempFood) {
         soulFood = doc.data().name;
     }
 
-    console.log("getSoulFood() return soulFood", soulFood);
     return soulFood;
 }
 
@@ -161,75 +154,79 @@ async function testSoulFood(db, response) {
         foodQuestion.push(doc.id);
     });
 
-    for (let i in foodQuestion) {
-        let index = foodQuestion[i]-1;
+    var foodQuestionInt = foodQuestion.map(str => parseInt(str))
+    foodQuestionInt.sort(function (a, b) { return a - b; });
+
+    console.log('foodQuestionstr', foodQuestion)
+    console.log('foodQuestionInt', foodQuestionInt)
+
+    for (let i in foodQuestionInt) {
+        let index = foodQuestionInt[i]-1;
         foodResponse += response[index];
     }
-
-    console.log('testSoulFood(): foodResponse', foodResponse);
 
     if (foodResponse === '0000') {
         tempFood = 'whiskey';
     }
-    if (foodResponse === '0001') {
+    if (foodResponse === '1001') {
         tempFood = 'sweetPotato';
     }
-    if (foodResponse === '0010') {
+    if (foodResponse === '0001') {
         tempFood = 'beer';
     }
-    if (foodResponse === '0011') {
+    if (foodResponse === '1000') {
         tempFood = 'monaka';
     }
     if (foodResponse === '0100') {
         tempFood = 'wine';
     }
-    if (foodResponse === '0101') {
+    if (foodResponse === '1101') {
         tempFood = 'tea';
     }
-    if (foodResponse === '0110') {
+    if (foodResponse === '0101') {
         tempFood = 'kozel';
     }
-    if (foodResponse === '0111') {
+    if (foodResponse === '1100') {
         tempFood = 'bread';
     }
-    if (foodResponse === '1000') {
+    if (foodResponse === '0011') {
         tempFood = 'cocktail';
     }
-    if (foodResponse === '1001') {
+    if (foodResponse === '1011') {
         tempFood = 'toast';
     }
-    if (foodResponse === '1010') {
+    if (foodResponse === '0010') {
         tempFood = 'koreanWine';
     }
-    if (foodResponse === '1011') {
+    if (foodResponse === '1010') {
         tempFood = 'potato';
     }
-    if (foodResponse === '1100') {
+    if (foodResponse === '0111') {
         tempFood = 'beef';
     }
-    if (foodResponse === '1101') {
+    if (foodResponse === '1111') {
         tempFood = 'ice';
     }
-    if (foodResponse === '1110') {
+    if (foodResponse === '0110') {
         tempFood = 'soju';
     }
-    if (foodResponse === '1111') {
+    if (foodResponse === '1110') {
         tempFood = 'riceCake';
     }
 
-    console.log("testSoulFood() return tempFood", tempFood);
     return tempFood;
 }
 
 export default function ResultPage({ location, history }) { 
     const { state } = useStateMachine({ updateChoice });
-    const [isLoading, setIsLoading] = useState(true);
+    const [ isLoading, setIsLoading ] = useState(true);
     const response = state.response;
     const [ soulFood, setSoulFood ] = useState(['로딩중이에요']);
     const [ rule, setRule ] = useState([{id: 0, rule: '로딩중이에요'}]);
     const [ keyword, setKeyword ] = useState([{ id: 0, keyword: '로딩중이에요' }]);
     const [ imageName, setImageName ] = useState('');
     const [result, setResult] = useState('결과를 받는 중이에요');
+    const [ isFinished, setIsFinished ] = useState(false);
 
     const url = 'http://ec2-13-124-188-130.ap-northeast-2.compute.amazonaws.com/main';
 
@@ -248,10 +245,14 @@ export default function ResultPage({ location, history }) {
     }, []);
 
     useEffect(() => {
+        setResult('🍀나만의 소울푸드 심리테스트🍀 : ' + soulFood + '! [나만의 소울푸드가 궁금하다면?]  ' + url);
+        setIsFinished(true);
+    }, [isLoading]);
+
+    useEffect(() => {
         const timestamp = firebase.firestore.Timestamp.fromDate(new Date());
         setUserDocument(db, state.data.age, state.data.sex, state.data.occupation, timestamp, response, soulFood, keyword);
-        setResult('🍀나만의 소울푸드 심리테스트🍀 : ' + soulFood + '! [나만의 소울푸드가 궁금하다면?]  ' + url);
-    }, [isLoading]);
+    }, [isFinished])
 
     return (
     <div>
