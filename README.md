@@ -13,11 +13,9 @@
 
 이번 **soul_food** 프로젝트의 목표는 사람들이 외식할 때 중요하게 생각하는 위생 환경에 대한 정보를 수집하는 것이에요. 
 
-## 프로그래머를 모집하고 있어요!
+## 다음 프로젝트는?
 
-React Native 프로그래머 1명을 모집하고 있어요. 
-
-우리 팀은 공공데이터를 이용한 모바일 앱을 제작할 계획이에요. 
+현재 우리 팀은 식당 공공데이터를 이용한 모바일 앱을 제작하고 있어요. 
 
 자세한 정보가 궁금하다면, dev.sunclock@gmail.com 으로 연락주세요!
 
@@ -39,10 +37,8 @@ React Native 프로그래머 1명을 모집하고 있어요.
 
 The goal of this spicific project, **soul_food**, is to collect information about what people value in terms of hygienic environment when eating out.
 
-## Hiring a new programmer!
+## Proceeding Project
 
-There is 1 open position for a new React Native programmer.
-
-Our team is planning to make an mobile application using open data.
+Our team is currently working on building mobile application using open restaurant data.
 
 For more information, please contact dev.sunclock@gmail.com !

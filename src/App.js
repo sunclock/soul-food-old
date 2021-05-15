@@ -5,6 +5,7 @@ import MainPage from './pages/MainPage';
 import InfoPage from './pages/InfoPage';
 import QuestionPage from './pages/QuestionPage';
 import ResultPage from './pages/ResultPage';
+import AdminPage from './pages/AdminPage';
 import "./styles/css/App.css";
 
 createStore({
@@ -24,6 +25,7 @@ export default function App() {
     <StateMachineProvider>
       <Router>
         <Switch>
+          <Route exact path='/admin' component={AdminPage} />
           <Route exact path='/main' component={MainPage} />
           <Route exact path='/info' component={InfoPage} />
           <Route exact path='/question' component={QuestionPage} />
