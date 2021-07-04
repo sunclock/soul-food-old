@@ -6,7 +6,7 @@ import Register from './register/Register';
 import Qna from './qna/Qna';
 import Result from './result/Result';
 import Admin from './admin/Admin';
-import "./styles/css/App.css";
+import "./App.css";
 
 createStore({
   data: {

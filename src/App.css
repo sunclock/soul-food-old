@@ -1,0 +1,42 @@
+@font-face {
+  font-family: "Cafe 24 Ssurround";
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  src: url(./fonts/Cafe24Ssurround.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: 'locus sangsang';
+  src: url('./fonts/locus_sangsang.otf') format('opentype');
+  src: url('./fonts/locus_sangsang.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  text-align: center;
+  background: #B8A2C8;
+  font-family: "Cafe 24 Ssurround", -apple-system, BlinkMacSystemFont, 
+  "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, 
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  word-break: keep-all;
+  margin-bottom: 20%;
+}
+
+button {
+  display: block;
+  appearance: none;
+  border:none;
+  outline:none;
+}
+
+ a:link { color: gray; text-decoration: none;}
+ a:visited { color:  gray; text-decoration: none;}
+ a:hover { color:  gray; text-decoration: none;}
+
+.locus {
+  font-family: "locus sangsang";
+  font-size: 20px;
+  line-height: 20px;
+}
