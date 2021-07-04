@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import updateChoice from "../actions/updateChoice";
 import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
-import { firestore } from "../firebase";
+import firestore from "../firebase";
 import bulbOnSimple from "../assets/pictures/bulbOnSimple.png";
 import halfSign from "../assets/pictures/halfSign.png";
 import gazeZero from "../assets/pictures/gazeZero.png";

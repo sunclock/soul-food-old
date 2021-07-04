@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { firebase, firestore } from "../firebase";
+import firebase from "firebase/app";
+import firestore from "../firebase";
+
 
 const db = firestore; //store 사용 
 

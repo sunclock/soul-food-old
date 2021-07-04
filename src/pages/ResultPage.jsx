@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useStateMachine } from "little-state-machine";
 import updateChoice from "../actions/updateChoice";
-import { firebase, firestore } from "../firebase";
+import firebase from "firebase/app";
+import firestore from "../firebase";
 import { Popover } from '@varld/popover'
 import bulbDetail from "../assets/pictures/bulbDetail.png";
 import TextShareButton from "../TextShareButton";
