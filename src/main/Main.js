@@ -1,8 +1,10 @@
 import React from 'react';
 import clover from '../assets/pictures/clover.png';
 import moonAndStar from '../assets/pictures/moonAndStar.png';
+import "./Main.css";
 
-export default function MainPage({ history }) {
+
+export default function Main({ history }) {
 
 
     return (
@@ -16,7 +18,7 @@ export default function MainPage({ history }) {
                     </h1>
                 </div>
                 <img id="clover-img" src={clover} alt="클로버" />
-                <button className="round-btn" id="main-start-btn" onClick={() => history.push('/info')}>시작하기</button>
+                <button className="round-btn" id="main-start-btn" onClick={() => history.push('/register')}>시작하기</button>
             </div>
         </>
     );

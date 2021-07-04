@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
 import updateInfo from "../actions/updateInfo";
+import "./Register.css";
 
-function InfoPage({ location, history }) {
+function Register({ location, history }) {
 
     const { handleSubmit, register } = useForm();
     const { actions } = useStateMachine({ updateInfo });
@@ -17,7 +18,7 @@ function InfoPage({ location, history }) {
         if (data.sex == '선택' || data.age == '선택' || data.occupation == '선택') {
             alert('성별, 나이, 직업을 모두 선택해주세요!')
         } else {
-            history.push("/question");
+            history.push("/qna");
         }
     };
 
@@ -61,4 +62,4 @@ function InfoPage({ location, history }) {
     );
 }
 // TODO("Start cook icon image need to be fixed")
-export default withRouter(InfoPage);
+export default withRouter(Register);

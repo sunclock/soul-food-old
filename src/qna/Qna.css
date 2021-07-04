@@ -1,0 +1,92 @@
+@font-face {
+    font-family: "Cafe 24 Ssurround";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    src: url(../styles/fonts/Cafe24Ssurround.ttf) format("truetype");
+  }
+  
+  @font-face {
+    font-family: 'locus sangsang';
+    src: url('../styles/fonts/locus_sangsang.otf') format('opentype');
+    src: url('../styles/fonts/locus_sangsang.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+.locus {
+    font-family: "locus sangsang";
+    font-size: 20px;
+    line-height: 20px;
+  }
+  
+
+.box {
+    position: relative;
+    width: 85%; 
+    margin-left: 7.5%;
+    margin-right: 7.5%;
+}
+
+.purple-border-box {
+  text-align: left;
+  background: #E7D7F2;
+  border-radius: 20px;
+  padding: 15px;
+}
+
+
+.yellow-box {
+    background: #FEFFD1;
+    border-radius: 20px;
+  }
+  
+
+
+#progress-text {
+    display: inline-block;
+    margin-top: 10%;
+    margin-left: 85%;
+    font-size: 18px;
+    line-height: 21px;
+  }
+  
+  #proress-img {
+    display: inline-block;
+    position: absolute;
+    width: 80%;
+    height: 70%;
+    top: 35%;
+  }
+  
+  #half-img-box {
+    position:absolute;
+    top:14%;
+    left:8%;
+  }
+  
+  #bulb-simple-img {
+    position: absolute;
+    width: 135px;
+    height: 174px;
+    top: 100%;
+    left: 24.5%;
+    object-fit: cover;
+  }
+  
+  #question-box {
+    margin-top: 50%;
+    text-align: center;
+    box-shadow: 0px 3px 5px;
+  }
+  
+  #question-text {
+    line-height: 200%;
+  } 
+  
+  #choice-box {
+    margin-top:5%;
+    padding: 3%;
+    box-shadow: 0px 3px 5px;
+  }
+  

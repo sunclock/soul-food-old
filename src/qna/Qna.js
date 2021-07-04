@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import updateChoice from "../actions/updateChoice";
 import { withRouter } from "react-router-dom";
 import { useStateMachine } from "little-state-machine";
-import firestore from "../firebase";
 import bulbOnSimple from "../assets/pictures/bulbOnSimple.png";
 import halfSign from "../assets/pictures/halfSign.png";
 import gazeZero from "../assets/pictures/gazeZero.png";
@@ -14,8 +13,11 @@ import gazeFive from "../assets/pictures/gazeFive.png";
 import gazeSix from "../assets/pictures/gazeSix.png";
 import gazeSeven from "../assets/pictures/gazeSeven.png";
 import gazeFull from "../assets/pictures/gazeFull.png";
+import firestore from '../firebase';
+import "./Qna.css";
 
-const db = firestore; //store 사용 
+// firebase의 firestore 인스턴스를 변수에 저장
+const db = firestore;
 
 async function getQuestionDoc(db, number) {
 
@@ -60,7 +62,7 @@ const updateProgressBar = (number) => {
     }
 }
 
-function QuestionPage({ location, history }) {
+function Qna({ location, history }) {
     const [isLoading, setIsLoading] = useState(true);
     const [question, setQuestion] = useState({ id: '0', question: [''] });
     const [choiceFirst, setChoiceFirst] = useState({ id: '0', choiceFirst: [''] });
@@ -176,4 +178,4 @@ function QuestionPage({ location, history }) {
     )
 }
 
-export default withRouter(QuestionPage);
+export default withRouter(Qna);

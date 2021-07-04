@@ -1,0 +1,96 @@
+@font-face {
+    font-family: "Cafe 24 Ssurround";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    src: url(../styles/fonts/Cafe24Ssurround.ttf) format("truetype");
+  }
+  
+  @font-face {
+    font-family: 'locus sangsang';
+    src: url('../styles/fonts/locus_sangsang.otf') format('opentype');
+    src: url('../styles/fonts/locus_sangsang.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+.locus {
+  font-family: "locus sangsang";
+  font-size: 20px;
+  line-height: 20px;
+}
+
+
+.box {
+    position: relative;
+    width: 85%; 
+    margin-left: 7.5%;
+    margin-right: 7.5%;
+}
+
+
+select, option {
+    display: block;
+    box-sizing: border-box;
+    width: 90%;
+    border-radius: 4px;
+    font-family: "Cafe 24 Ssurround";
+    background: #C4C4C4;
+    border: 1px solid #C4C4C4;
+    margin: 5%;
+    padding: 3%;
+    font-size: 18px;
+  }
+
+
+.purple-border-box {
+    text-align: left;
+    background: #E7D7F2;
+    border-radius: 20px;
+    padding: 15px;
+  }
+
+
+.yellow-outline-bold {
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+    color: #FEFFD1;
+  }
+  
+
+
+.info-label {
+    font-size: 24px;
+    line-height: 28px;
+    color: #21296E;
+    margin-left: 5%;
+  }
+  
+  #info-title {
+    padding-top: 20%;
+    font-size: 34px;
+    line-height: 40px;
+    letter-spacing: 0.05em;
+  }
+  
+  #info-box {
+    margin-top: 10%;
+  }
+  
+  #info-submit-btn {
+    font-size: 0;
+    width: 50px;
+    height: 50px;
+    border: 0;
+    outline: 0;
+    background-image: url("../assets/pictures/infoStart.png");
+    background-size: 50px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    margin-bottom: 5%;
+  }
+  
+  #info-start-box {
+    margin-top: 10%;
+    margin-left: 30%;
+  }
+  

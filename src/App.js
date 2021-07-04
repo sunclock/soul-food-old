@@ -1,11 +1,11 @@
 import React from 'react'; 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'; 
 import { StateMachineProvider, createStore } from "little-state-machine";
-import MainPage from './pages/MainPage'; 
-import InfoPage from './pages/InfoPage';
-import QuestionPage from './pages/QuestionPage';
-import ResultPage from './pages/ResultPage';
-import AdminPage from './pages/AdminPage';
+import Main from './main/Main'; 
+import Register from './register/Register';
+import Qna from './qna/Qna';
+import Result from './result/Result';
+import Admin from './admin/Admin';
 import "./styles/css/App.css";
 
 createStore({
@@ -25,11 +25,11 @@ export default function App() {
     <StateMachineProvider>
       <Router>
         <Switch>
-          <Route exact path='/admin' component={AdminPage} />
-          <Route exact path='/main' component={MainPage} />
-          <Route exact path='/info' component={InfoPage} />
-          <Route exact path='/question' component={QuestionPage} />
-          <Route exact path='/result' component={ResultPage} />
+          <Route exact path='/admin' component={Admin} />
+          <Route exact path='/main' component={Main} />
+          <Route exact path='/register' component={Register} />
+          <Route exact path='/qna' component={Qna} />
+          <Route exact path='/result' component={Result} />
           <Route render={() => <div className='error'>"error occurred"</div>} />
         </Switch>
       </Router>
