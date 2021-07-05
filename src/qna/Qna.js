@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import updateChoice from "../actions/updateChoice";
 import { withRouter } from "react-router-dom";
-import { useStateMachine } from "little-state-machine";
 import bulbOnSimple from "../assets/pictures/bulbOnSimple.png";
 import halfSign from "../assets/pictures/halfSign.png";
 import gazeZero from "../assets/pictures/gazeZero.png";
@@ -69,7 +67,6 @@ function Qna({ location, history }) {
     const [choiceSecond, setChoiceSecond] = useState({ id: '0', choiceSecond: [''] });
     const [number, setNumber] = useState('1');
     const [choice, setChoice] = useState('');
-    const { actions } = useStateMachine({ updateChoice });
 
     const updateQuestionAndChoice = () => {
         console.log('updateQuestionAndChoice() called');
@@ -121,7 +118,7 @@ function Qna({ location, history }) {
         // number가 업데이트 될 때마다 실행합니다
         updateQuestionAndChoice();
         updateProgressBar(number);
-        actions.updateChoice(choice);
+        // actions.updateChoice(choice);
         console.log('useEffect[number] called:', choice, 'number', number);
         
         if (number==17) {

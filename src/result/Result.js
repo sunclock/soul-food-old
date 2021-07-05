@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useStateMachine } from "little-state-machine";
-import updateChoice from "../actions/updateChoice";
 import { Popover } from '@varld/popover'
 import bulbDetail from "../assets/pictures/bulbDetail.png";
 import TextShareButton from "../TextShareButton";
@@ -221,9 +219,9 @@ async function testSoulFood(db, response) {
 }
 
 export default function ResultPage({ location, history }) { 
-    const { state } = useStateMachine({ updateChoice });
     const [ isLoading, setIsLoading ] = useState(true);
-    const response = state.response;
+    const [ info, setInfo ] = useState();
+    const response = '';
     const [ soulFood, setSoulFood ] = useState(['로딩중이에요']);
     const [ rule, setRule ] = useState([{id: 0, rule: '로딩중이에요'}]);
     const [ keyword, setKeyword ] = useState([{ id: 0, keyword: '로딩중이에요' }]);
@@ -254,7 +252,7 @@ export default function ResultPage({ location, history }) {
 
     useEffect(() => {
         const timestamp = firebase.firestore.Timestamp.fromDate(new Date());
-        setUserDocument(db, state.data.age, state.data.sex, state.data.occupation, timestamp, response, soulFood, keyword);
+        setUserDocument(db, info.age, info.sex, info.occupation, timestamp, response, soulFood, keyword);
     }, [isFinished])
 
     return (
