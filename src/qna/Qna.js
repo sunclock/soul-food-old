@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { withRouter } from "react-router-dom";
 import bulbOnSimple from "../assets/pictures/bulbOnSimple.png";
 import halfSign from "../assets/pictures/halfSign.png";
@@ -13,6 +13,7 @@ import gazeSeven from "../assets/pictures/gazeSeven.png";
 import gazeFull from "../assets/pictures/gazeFull.png";
 import firestore from '../firebase';
 import "./Qna.css";
+import {UserContext} from '../user-context';
 
 // firebase의 firestore 인스턴스를 변수에 저장
 const db = firestore;
@@ -60,19 +61,30 @@ const updateProgressBar = (number) => {
     }
 }
 
-function Qna({ location, history }) {
+function Qna({ history }) {
     const [isLoading, setIsLoading] = useState(true);
+
+    // User Context 
+    const userContext = useContext(UserContext);
+    const user = userContext.user;
+    const updateValue = userContext.updateValue;
+
+    // Question and Choices
     const [question, setQuestion] = useState({ id: '0', question: [''] });
     const [choiceFirst, setChoiceFirst] = useState({ id: '0', choiceFirst: [''] });
     const [choiceSecond, setChoiceSecond] = useState({ id: '0', choiceSecond: [''] });
+   
+   // Question number count, selected choices
     const [number, setNumber] = useState('1');
     const [choice, setChoice] = useState('');
 
+    // Update Question and Choices Function
     const updateQuestionAndChoice = () => {
-        console.log('updateQuestionAndChoice() called');
+        // if not last question, then get questinaire data from server
         if (choice.length < 16) {
             getQuestionDoc(db, number).then((data) => {
 
+                // get/set question
                 var newQuestion = new Object();
                 newQuestion.id = number;
                 newQuestion.question = [];
@@ -82,6 +94,7 @@ function Qna({ location, history }) {
                 }
                 setQuestion(newQuestion);
 
+                // get/set first choice
                 var newChoiceFirst = new Object();
                 newChoiceFirst.id = number;
                 newChoiceFirst.choiceFirst = [];
@@ -91,6 +104,7 @@ function Qna({ location, history }) {
                 }
                 setChoiceFirst(newChoiceFirst);
 
+                // get/set second choice
                 var newChoiceSecond = new Object();
                 newChoiceSecond.id = number;
                 newChoiceSecond.choiceSecond = [];
@@ -99,39 +113,32 @@ function Qna({ location, history }) {
                     newChoiceSecond.choiceSecond.push(data.examples.choiceSecond[i]);
                 }
                 setChoiceSecond(newChoiceSecond);
-
-                console.log("question", newQuestion, question, "choiceFirst", choiceFirst, "choiceSecond", choiceSecond);
             })
-        } else {
-            console.log("updateQuestionAndChoice(): End of Question");
         }
     }
 
+    // When loaded for the first time
     useEffect(() => {
-        // 컴포넌트가 마운트되고 함수를 한번 실행합니다
-        console.log('use Effect called');
         updateQuestionAndChoice();
         setIsLoading(false);
     }, []);
 
+    // When question number is updated
     useEffect(() => {
-        // number가 업데이트 될 때마다 실행합니다
         updateQuestionAndChoice();
         updateProgressBar(number);
-        // actions.updateChoice(choice);
-        console.log('useEffect[number] called:', choice, 'number', number);
         
+        // If End of Question, Go to Result Page
         if (number==17) {
-        history.push("/result");
+            updateValue('response', choice);
+            history.push("/result");
         }
     }, [number]);
 
-    const handleChange = (newVal) => {
-        console.log('handle change called', number);
-        if (number < 17) {
+    // increment question count & update choice value
+        const handleChange = (newVal) => {
             setNumber(parseInt(number) + 1 + "");
             setChoice(choice + newVal);
-        } 
     }
 
     return (

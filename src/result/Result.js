@@ -1,37 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Popover } from '@varld/popover'
 import bulbDetail from "../assets/pictures/bulbDetail.png";
 import TextShareButton from "../TextShareButton";
 import firestore from '../firebase';
 import firebase from "firebase";
 import "./Result.css";
+import { UserContext } from '../user-context';
 
 
-const db = firestore; //store 사용 
+const db = firestore;
 
-async function setUserDocument (db, age, sex, occupation, timestamp, response, soulFood, keyword) {
-
+// send user data to server
+async function setUserDocument(db, _user, timestamp, response, soulFood, keyword) {
     // [parameters]
     // db: firestore
-    // age, sex, occupation, soulFood: string
+    // age, sex, job, soulFood: string
     // response: list of number 0 and 1, length of 16.
     // keyword: list of string
     // date: firebase timestamp object
-
-    console.log("setUserDocument() called");
-
     const user = await db.collection('users').add({
-        age: age,
-        sex: sex,
-        occupation: occupation,
+        age: _user.age,
+        sex: _user.sex,
+        job: _user.job,
         date: timestamp,
         response: response,
         soulFood: soulFood,
         keyword: keyword
     });
-    console.log('setUserDocument() Added document with ID: ', user.id);
 }
 
+
+// determine matching keyword &
+// get keyword data from the server
 async function getKeyword(db, response) {
 
     // [parameters]
@@ -61,10 +61,10 @@ async function getKeyword(db, response) {
             count += 1;
         }
     });
-
     return keyword;
 }
 
+// get matching hygiene rule from server
 async function getRule(db, response) {
 
     // [parameters]
@@ -73,8 +73,8 @@ async function getRule(db, response) {
 
     // [return] 
     // rule: list of object newRule(id, rule). 
-        // newRule.id : number starting from 1
-        // newRule.rule : list of string
+    // newRule.id : number starting from 1
+    // newRule.rule : list of string
 
     console.log("getRule() called");
 
@@ -99,14 +99,15 @@ async function getRule(db, response) {
         } else {
             newRule.rule = doc.data().rules.choiceSecond;
         }
-            rule.push(newRule);
-            count += 1;
+        rule.push(newRule);
+        count += 1;
     })
 
     return rule;
 }
 
 
+// get matching soul food data from server
 async function getSoulFood(db, tempFood) {
 
     // [parameters]
@@ -131,6 +132,9 @@ async function getSoulFood(db, tempFood) {
     return soulFood;
 }
 
+
+// determine matching soul food based on user's response
+// set imageName
 async function testSoulFood(db, response) {
 
     // [parameters]
@@ -141,7 +145,8 @@ async function testSoulFood(db, response) {
     // tempFood: string
 
     console.log("testSoulFood() called");
-    let foodQuestion = []; 
+
+    let foodQuestion = [];
     let foodResponse = '';
     let tempFood = '';
 
@@ -158,11 +163,8 @@ async function testSoulFood(db, response) {
     var foodQuestionInt = foodQuestion.map(str => parseInt(str))
     foodQuestionInt.sort(function (a, b) { return a - b; });
 
-    console.log('foodQuestionstr', foodQuestion)
-    console.log('foodQuestionInt', foodQuestionInt)
-
     for (let i in foodQuestionInt) {
-        let index = foodQuestionInt[i]-1;
+        let index = foodQuestionInt[i] - 1;
         foodResponse += response[index];
     }
 
@@ -218,126 +220,129 @@ async function testSoulFood(db, response) {
     return tempFood;
 }
 
-export default function ResultPage({ location, history }) { 
-    const [ isLoading, setIsLoading ] = useState(true);
-    const [ info, setInfo ] = useState();
-    const response = '';
+
+export default function ResultPage() {
+
+    // flow control
+    const [isLoading, setIsLoading] = useState(true);
+
+    // User Context 
+    const userContext = useContext(UserContext);
+    const user = userContext.user;
+    const updateValue = userContext.updateValue;
+    const url = 'http://ec2-13-124-188-130.ap-northeast-2.compute.amazonaws.com/main';
+    const response = user.response;
+
+    // state
     const [ soulFood, setSoulFood ] = useState(['로딩중이에요']);
     const [ rule, setRule ] = useState([{id: 0, rule: '로딩중이에요'}]);
     const [ keyword, setKeyword ] = useState([{ id: 0, keyword: '로딩중이에요' }]);
     const [ imageName, setImageName ] = useState('');
-    const [result, setResult] = useState('결과를 받는 중이에요');
-    const [ isFinished, setIsFinished ] = useState(false);
-
-    const url = 'http://ec2-13-124-188-130.ap-northeast-2.compute.amazonaws.com/main';
+    const [ copyText, setCopyText ] = useState('결과를 받는 중이에요');
 
     useEffect(() => {
-
-        async function orderController() {
+        async function setSoulFoodData() {
             let tempFood = await testSoulFood(db, response);
-            let soulFoodName = await getSoulFood(db, tempFood);
             setImageName(tempFood);
+            let soulFoodName = await getSoulFood(db, tempFood);
             setSoulFood(soulFoodName);
             setKeyword(await getKeyword(db, response));
             setRule(await getRule(db, response));
+            setCopyText ('🍀나만의 소울푸드 심리테스트🍀 : ' + soulFood + '! [나만의 소울푸드가 궁금하다면?]  ' + url);
             setIsLoading(false);
         }
-        orderController();
+        setSoulFoodData();
     }, []);
 
     useEffect(() => {
-        setResult('🍀나만의 소울푸드 심리테스트🍀 : ' + soulFood + '! [나만의 소울푸드가 궁금하다면?]  ' + url);
-        setIsFinished(true);
-    }, [isLoading]);
-
-    useEffect(() => {
-        const timestamp = firebase.firestore.Timestamp.fromDate(new Date());
-        setUserDocument(db, info.age, info.sex, info.occupation, timestamp, response, soulFood, keyword);
-    }, [isFinished])
+        let timestamp = firebase.firestore.Timestamp.fromDate(new Date());
+        setUserDocument(db, user, timestamp, response, soulFood, keyword);
+    }, [isLoading])
 
     return (
-    <div>
-        <Popover
-            popover={({ visible, close }) => {
-          return (
-            <div className="locus-purple-box" id="pop-up-container">
-                <p>안심한끼 팀 소개</p><br/>
-                <p>정부에서는 '안심식당'지정을 통해서 건강한 외식문화 조성을 위해 노력하고 있는데요,</p>
-                <p>저희는 안심식당 데이터를 활용한 앱서비스 <span id="app-theme-color">안심한끼</span>를 제작 중인 대학생들이랍니다:)</p>
-                <button id="pop-up-btn" onClick={close}>닫기</button>
-            </div>
-          );
-        }}
-      >
-          <div id="pop-up-box">
+        <div>
+            <Popover
+                popover={({ visible, close }) => {
+                    return (
+                        <div className="locus-purple-box" id="pop-up-container">
+                            <p>안심한끼 팀 소개</p><br />
+                            <p>정부에서는 '안심식당'지정을 통해서 건강한 외식문화 조성을 위해 노력하고 있는데요,</p>
+                            <p>저희는 안심식당 데이터를 활용한 앱서비스 <span id="app-theme-color">안심한끼</span>를 제작 중인 대학생들이랍니다:)</p>
+                            <button id="pop-up-btn" onClick={close}>닫기</button>
+                        </div>
+                    );
+                }}
+            >
+                <div id="pop-up-box">
                     <div className="left-float">
                         <p id="img-btn-text">안심한끼 프로젝트에 대해 <br />보다 자세히 알고 싶다면?</p>
                     </div>
                     <div className="right-float">
                         <img id="pop-up-img" src={bulbDetail} alt="설명 보기" />
                     </div>
-          </div>
-        </Popover>
-        <h1 className="yellow-outline-bold" id="result-title">당신의 소울푸드!</h1>
-        <div className="box">
-            {!isLoading
-            ? <img id="food-img" src={require('../assets/food/' + imageName + '.jpg').default} alt="소울푸드" />
-            : '로딩중이에요'}
-        </div>
-        <div id="food-name-box">
-            <p id="food-text">
+                </div>
+            </Popover>
+            <h1 className="yellow-outline-bold" id="result-title">당신의 소울푸드!</h1>
+            <div className="box">
                 {!isLoading
-                ? soulFood
-                : '로딩중이에요'}
-            </p>
-        </div>
-        <div className="box">
-            <ul id="keyword-ul">
-                {!isLoading
-                ? keyword.map((item) => {
-                    return <li key={item.id} id="keyword-li">{item.keyword}</li>
-                })
-                : '로딩중이에요'}
-            </ul>
-        </div>
-        <div id="rule-box" className="box">
-            <h2 className="yellow-outline-light">당신은 이런 곳에서 식사하면<br />훨씬 행복한 사람이에요!</h2>
+                    ? <img id="food-img" src={require('../assets/food/' + imageName + '.jpg').default} alt="소울푸드" />
+                    : '로딩중이에요'}
+            </div>
+            <div id="food-name-box">
+                <p id="food-text">
+                    {!isLoading
+                        ? soulFood
+                        : '로딩중이에요'}
+                </p>
+            </div>
+            <div className="box">
+                <ul id="keyword-ul">
+                    {!isLoading
+                        ? keyword.map((item) => {
+                            return <li key={item.id} id="keyword-li">{item.keyword}</li>
+                        })
+                        : '로딩중이에요'}
+                </ul>
+            </div>
+            <div id="rule-box" className="box">
+                <h2 className="yellow-outline-light">당신은 이런 곳에서 식사하면<br />훨씬 행복한 사람이에요!</h2>
                 <div className="locus-purple-box">
                     {!isLoading
-                    ? rule.map((item) => {
-                        if (item.rule.length > 1) {
-                            return <><p key={item.id}>- {item.rule}</p><br/></>
-                        }})
-                    : '로딩중이에요'}
-                    
+                        ? rule.map((item) => {
+                            if (item.rule.length > 1) {
+                                return <><p key={item.id}>- {item.rule}</p><br /></>
+                            }
+                        })
+                        : '로딩중이에요'}
+
                 </div>
-        </div>
-        <h2 className="yellow-outline-light">여러분의 설문 결과는!</h2>
-        <div className="box locus-purple-box">
-            <p>안녕하세요. <br />
-                저희는 공공앱 <span id="app-theme-color">안심한끼</span>를 개발 중인 대학생들입니다.
-                여러분들의 응답결과는 보다 유용한 서비스 제공을 위해
-                활용될 계획이에요!
-                밥 한끼를 먹더라도 안전하고 만족스럽게 먹기 위한
-                발걸음에 함께 해주셔서 감사합니다 :)
-            </p>
-        </div>
-        <TextShareButton text={result} />
-        <div id="reference">
-                <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" 
-                    title="Smashicons">Smashicons</a> 
-                    from <a href="https://www.flaticon.com/" 
-                    title="Flaticon">www.flaticon.com</a>
+            </div>
+            <h2 className="yellow-outline-light">여러분의 설문 결과는!</h2>
+            <div className="box locus-purple-box">
+                <p>안녕하세요. <br />
+                    저희는 공공앱 <span id="app-theme-color">안심한끼</span>를 개발 중인 대학생들입니다.
+                    여러분들의 응답결과는 보다 유용한 서비스 제공을 위해
+                    활용될 계획이에요!
+                    밥 한끼를 먹더라도 안전하고 만족스럽게 먹기 위한
+                    발걸음에 함께 해주셔서 감사합니다 :)
+                </p>
+            </div>
+            <TextShareButton text={copyText} />
+            <div id="reference">
+                <div>Icons made by <a href="https://www.flaticon.com/authors/smashicons"
+                    title="Smashicons">Smashicons</a>
+                    from <a href="https://www.flaticon.com/"
+                        title="Flaticon">www.flaticon.com</a>
                 </div>
                 <div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect"
-                    title="Pixel perfect">Pixel perfect</a> 
+                    title="Pixel perfect">Pixel perfect</a>
                     from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
                 </div>
-                <div>Icons made by <a href="https://www.freepik.com" 
-                    title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" 
-                    title="Flaticon">www.flaticon.com</a>
+                <div>Icons made by <a href="https://www.freepik.com"
+                    title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"
+                        title="Flaticon">www.flaticon.com</a>
                 </div>
+            </div>
         </div>
-    </div>
     );
-} 
+}

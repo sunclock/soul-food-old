@@ -2,7 +2,6 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import link from './assets/pictures/link.png';
 
 export default function TextShareButton(result) {
-    console.log(result);
     const handleClick = () => {
         alert("결과를 복사했어요! 원하는 곳에 붙여넣기를 해보세요.")
     }

@@ -1,49 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { withRouter } from "react-router-dom";
 import "./Register.css";
-
-const initialInfo = {
-    age: '선택',
-    sex: '선택',
-    job: '선택',
-};
-
+import {UserContext} from '../user-context';
 
 function Register({ history }) {
-    const [info, setInfo] = useState(initialInfo);
+    
+    // Context Definitions
+    const userContext = useContext(UserContext);
+    const user = userContext.user;
+    const updateValue = userContext.updateValue;
 
+    // Handle Changed Values
     const handleChange = (e) => {
         const target = e.target;
         const value = target.value;
         const name = target.name;
-
-        setInfo({ ...info, [name]:value});
+        updateValue(name, value);
     }
 
+    // Handle Submitted Values
     const handleSubmit = (e) => {
-        if (info.sex === initialInfo.sex | 
-            info.age === initialInfo.age | 
-            info.job === initialInfo.job) 
+        if (user.sex === 'default' | 
+            user.age === 'default' | 
+            user.job === 'default') 
             {
                 alert("성별, 나이, 직업을 모두 선택해주세요!");
                 return 0;
              }
         history.push("/qna");
     }
-
     return (
         <form onSubmit={handleSubmit}>
             <h1 className="yellow-outline-bold" id="info-title">주문받겠습니다</h1>
             <div class="box purple-border-box" id="info-box">
                 <label className="info-label">성별</label>
-                <select value={info.sex} name="sex" onChange={handleChange}>
+                <select value={user.sex} name="sex" onChange={handleChange}>
                     <option value="선택">선택</option>
                     <option value="female">여자</option>
                     <option value="male">남자</option>
                     <option value="other">그 외</option>
                 </select>
                 <label className="info-label">나이</label>
-                <select value={info.age} name="age" onChange={handleChange}>
+                <select value={user.age} name="age" onChange={handleChange}>
                     <option value="선택">선택</option>
                     <option value="teen">20대 이하</option>
                     <option value="earlyTwenties">20~24세</option>
@@ -54,7 +52,7 @@ function Register({ history }) {
                     <option value="sixtiesAbove">60대 이상</option>
                 </select>
                 <label className="info-label">직업</label>
-                <select value={info.job} name="job" onChange={handleChange}>
+                <select value={user.job} name="job" onChange={handleChange}>
                     <option value="선택">선택</option>
                     <option value="student">학생</option>
                     <option value="officeWorker">직장인</option>
