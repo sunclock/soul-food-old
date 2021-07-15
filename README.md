@@ -1,5 +1,4 @@
-![Image of soul food test](https://i.imgur.com/njCyUrJ.jpg#.YIuUSdKWS9c)
-<img src="https://i.imgur.com/njCyUrJ.jpg#.YIuUSdKWS9c" alt="drawing" width="400"/>
+<img src="https://i.imgur.com/njCyUrJ.jpg#.YIuUSdKWS9c" alt="drawing" width="600"/>
 # 프로젝트 소개
 **soul_food**는 리액트 기반 웹 페이지로, 설문조사 경험을 더욱 재밌게 만들기 위해 제작됐어요. 
 
