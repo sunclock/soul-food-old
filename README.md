@@ -1,5 +1,7 @@
 <img src="https://i.imgur.com/njCyUrJ.jpg#.YIuUSdKWS9c" alt="drawing" width="600"/>
+
 # 프로젝트 소개
+
 **soul_food**는 리액트 기반 웹 페이지로, 설문조사 경험을 더욱 재밌게 만들기 위해 제작됐어요. 
 
 - **A/B 테스트**: 2개의 선택지 버튼이 주어지고, 하나를 클릭하는 방식으로 응답해요. 상단의 상태바로 현재 단계를 알 수 있어요.
