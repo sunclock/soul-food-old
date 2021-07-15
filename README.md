@@ -1,3 +1,5 @@
+![Image of soul food test](https://i.imgur.com/njCyUrJ.jpg#.YIuUSdKWS9c)
+
 # 프로젝트 소개
 **soul_food**는 리액트 기반 웹 페이지로, 설문조사 경험을 더욱 재밌게 만들기 위해 제작됐어요. 
 
@@ -5,7 +7,8 @@
 - **게임처럼**: 응답을 기반으로 당신의 소울푸드와 당신이 좋아할만한 식사 환경을 추천해드려요. 귀여운 그림들과 간결한 디자인은 덤이죠!
 
 ## 내 소울푸드가 궁금하다면?
-[여기를 클릭해서 테스트에 참여해봐요!](https://bit.ly/3tgoVkz)
+<!-- [여기를 클릭해서 테스트에 참여해봐요!](https://bit.ly/3tgoVkz) -->
+지금은 이용할 수 없어요. 조금만 기다려주세요! 
 
 # 팀 소개
 
@@ -29,13 +32,14 @@
 - **Game-like**: We recommend you a soul food and dining environment you might like based on your answer. Cute graphics and simple design makes survey process enjoyable!
 
 ## Want to know your soul food?
-[Click to Test!](https://bit.ly/3tgoVkz)
+<!-- [Click to Test!](https://bit.ly/3tgoVkz) -->
+Currently Not Available. 
 
 # About the Team
 
 **RenaissanSook** is a team gathered to make eating out expericence more safe and reassuring in the pandemic era.
 
-The goal of this spicific project, **soul_food**, is to collect information about what people value in terms of hygienic environment when eating out.
+The goal of this specific project, **soul_food**, is to collect information about what people value in terms of hygienic environment when eating out.
 
 ## Proceeding Project
 
